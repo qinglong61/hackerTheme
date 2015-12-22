@@ -41,6 +41,9 @@ chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
         var storageChange = changes[key];
+        if (key == 'enabled') {
+            enabled = storageChange.newValue;    
+        }
         console.log('存储键“%s”（位于“%s”命名空间中）已更改。' +
                         '原来的值为“%s”，新的值为“%s”。',
                     key,
