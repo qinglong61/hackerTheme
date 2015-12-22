@@ -1,4 +1,4 @@
-var action = function () {
+function action () {
     chrome.tabs.executeScript({
         code: '(function(){\
             var b=document.getElementsByTagName("*");\
@@ -10,13 +10,20 @@ var action = function () {
     });
 };
 
+function isEmpty (obj) {
+    for (var name in obj) {
+        return false;
+    }
+    return true;
+};
+
+// chrome.storage.local.clear();
+
 var enabled = false;
-chrome.storage.local.get("enabled", function (items) {
-    if (items.length > 0) {
-        console.log(1);
-        enabled = items[0].enabled;
+chrome.storage.local.get('enabled', function (item) {
+    if (!isEmpty(item)) {
+        enabled = item.enabled;
     } else {
-        console.log(2);
         chrome.storage.local.set({'enabled': enabled});
     }
 });
