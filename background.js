@@ -3,8 +3,8 @@ function action () {
         code: '(function(){\
             var b=document.getElementsByTagName("*");\
             for(var i=0;i<b.length;i++){\
-                b[i].style.backgroundColor="#000000";\
-                b[i].style.color="#60ff20";\
+                b[i].style.backgroundColor="#282c34";\
+                b[i].style.color="#60cc20";\
             }\
         })()'
     });
@@ -33,7 +33,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-    if (changeInfo.status == "complete" && enabled) {
+    if (changeInfo.status == "loading" && enabled) {
         action();
     }
 });
@@ -42,7 +42,7 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
     for (key in changes) {
         var storageChange = changes[key];
         if (key == 'enabled') {
-            enabled = storageChange.newValue;    
+            enabled = storageChange.newValue;
         }
         console.log('存储键“%s”（位于“%s”命名空间中）已更改。' +
                         '原来的值为“%s”，新的值为“%s”。',
