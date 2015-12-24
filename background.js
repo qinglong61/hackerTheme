@@ -12,6 +12,16 @@ function action (tabId) {
             allFrames:true
         }
     );
+    chrome.tabs.insertCSS (
+        tabId,
+        {
+            code:  'a:link {color:#60cc20;}\
+                    a:visited {color:#60cc20;}\
+                    a:hover {color:#60cc20;}\
+                    a:active {color:#60cc20;}',
+            allFrames:true
+        }
+    );
 };
 
 function isEmpty (obj) {
