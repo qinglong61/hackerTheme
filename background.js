@@ -1,13 +1,17 @@
-function action () {
-    chrome.tabs.executeScript({
-        code: '(function(){\
-            var b=document.getElementsByTagName("*");\
-            for(var i=0;i<b.length;i++){\
-                b[i].style.backgroundColor="#282c34";\
-                b[i].style.color="#60cc20";\
-            }\
-        })()'
-    });
+function action (tabId) {
+    chrome.tabs.executeScript(
+        tabId,
+        {
+            code: '(function(){\
+                        var b=document.getElementsByTagName("*");\
+                        for(var i=0;i<b.length;i++){\
+                            b[i].style.backgroundColor="#282c34";\
+                            b[i].style.color="#60cc20";\
+                        }\
+                    })()',
+            allFrames:true
+        }
+    );
 };
 
 function isEmpty (obj) {
@@ -29,12 +33,12 @@ chrome.storage.local.get('enabled', function (item) {
 });
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-    // action();
+
 });
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
     if (changeInfo.status == "loading" && enabled) {
-        action();
+        action(tabId);
     }
 });
 
