@@ -57,12 +57,13 @@ chrome.storage.onChanged.addListener(function(changes, namespace) {
         var storageChange = changes[key];
         if (key == 'enabled') {
             enabled = storageChange.newValue;
+            chrome.tabs.reload();
         }
-        console.log('存储键“%s”（位于“%s”命名空间中）已更改。' +
-                        '原来的值为“%s”，新的值为“%s”。',
-                    key,
-                    namespace,
-                    storageChange.oldValue,
-                    storageChange.newValue);
+        // console.log('存储键“%s”（位于“%s”命名空间中）已更改。' +
+        //                 '原来的值为“%s”，新的值为“%s”。',
+        //             key,
+        //             namespace,
+        //             storageChange.oldValue,
+        //             storageChange.newValue);
     }
 });
