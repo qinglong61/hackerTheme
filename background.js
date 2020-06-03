@@ -2,13 +2,24 @@ function action (tabId) {
     chrome.tabs.executeScript(
         tabId,
         {
-            code: '(function(){\
-                        var b=document.getElementsByTagName("*");\
+            code: 
+                    'function f(dom){\
+                        var b=dom.getElementsByTagName("*");\
                         for(var i=0;i<b.length;i++){\
-                            b[i].style.backgroundColor="#282c34";\
-                            b[i].style.color="#60cc20";\
+                            b[i].style.cssText += "color: rgb(96, 136, 32);\
+                            background-color: rgb(51, 51, 85) !important;\
+                            background-image: none !important";\
                         }\
-                    })()',
+                        var m=dom.getElementsByTagName("img");\
+                        for(var i=0;i<m.length;i++){\
+                            m[i].parentNode.removeChild(m[i]);\
+                        }\
+                    }\
+                    var fm=document.getElementsByTagName("iframe");\
+                    for(var i=0;i<fm.length;i++){\
+                        f(fm[i]);\
+                    }\
+                    f(document);',
             allFrames:true
         }
     );
